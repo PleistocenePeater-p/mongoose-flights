@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+
+<p>Please first ensure that your ticket is not in the dropdown
+  <select>
+    <% tickets.forEach(function(t) { %>
+      <option><%= t.seat %></option>
+    <% }) %>
+  </select>
+</p>
+<form id="add-ticket-form" action="/tickets" method="POST">
+  <label>Seat:</label>
+  <input name="seat" required pattern="[A-F][1-9]\d?">
+  <label>Price:</label>
+  <input type="text" name="price">
+  <input type="submit" value="Add Ticket">
+</form>
+
+<%- include('../partials/footer') %>

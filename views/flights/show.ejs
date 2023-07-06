@@ -1,0 +1,99 @@
+<%- include('../partials/header') %>
+
+<section id="show-page">
+    <div>Flight: </div>
+    <div><%= flight.airline %></div>
+    <div>Airport: </div>
+    <div><%= flight.airport %></div>
+    <div>Flight Number: </div>
+    <div><%= flight.flightNo %></div>
+    <div>Departure: </div>
+    <div><%= flight.departs %></div>
+</section>
+
+<!-- //Destination form-->
+<br><br>
+<h2>Add Destination</h2>
+<form id="add-destination-form" method="POST"
+  action="/flights/<%= flight._id %>/destinations">
+  <label>Arrival Airport:</label>
+  <select name="airport">
+    <option value="AUS">AUS</option>
+    <option value="DFW">DFW</option>
+    <option value="DEN" selected>DEN</option>
+    <option value="LAX">LAX</option>
+    <option value="SAN">SAN</option>
+    </select>
+  <label>Arrival Date/Time:</label>
+  <input type="datetime-local" name="arrival">
+  <input type="submit" value="Add Destination">
+</form>
+
+<!-- //List of all destinations-->
+<br><br><h2>All Destinations</h2>
+<% if (flight.destinations.length) { %>
+    <table>
+        <thread>
+            <tr>
+                <th>Arrival Airport</th>
+                <br><br>
+                <th>Arrival Date/Time</th>
+            </tr>
+        </thread>
+        <tbody>
+            <% flight.destinations.forEach(function(d) { %>
+                <tr>
+                    <td><%= d.airport %></td>
+                    <br><br>
+                    <td><%= d.arrival%></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+<% } else { %>
+    <h5>No Destinations yet</h5>
+<% } %>
+<!--Lab 3, Part 2-->
+
+<br><br>
+
+<table>
+    <thread>
+        <tr>
+            <th>Seat</th>
+            <br><br>
+            <th>Price</th>
+        </tr>
+    </thread>
+    <tbody>
+        <h2>All Passengers</h2>
+        <% passengers.forEach(function(t) { %>
+            
+            <tr>
+                    <td><%= t.seat %></td>
+                    <br><br>
+                    <td><%= t.price%></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+            
+
+
+
+<!--Lab 3, Part 3-->
+
+<form action="/flights/<%=flight._id%>/tickets/new" method="POST">
+
+
+<br><label>Seat</label>
+<input type="text" name="seat" placeholder="Insert Seat Number"><br>
+<br><label>Price</label>
+<input type="number" name="price" placeholder="Insert Seat Price"><br>
+
+<br><button type="submit">Submit</button><br>
+
+</form>
+
+<%- include('../partials/footer') %>
